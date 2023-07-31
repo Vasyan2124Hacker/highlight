@@ -12,11 +12,11 @@ if uselocalplayer == false and holder:FindFirstChild(game.Players.LocalPlayer.Na
     holder:FindFirstChild(game.Players.LocalPlayer.Name):Remove()
 end
 
-if getgenv().enabled == true then 
-    getgenv().enabled = false
-    getgenv().enabled = true
+if HLenabled == true then 
+    HLenabled = false
+    HLenabled = true
 end
-while getgenv().enabled do
+while HLenabled do
     task.wait()
     for _,v in pairs(game.Players:GetChildren()) do
         local chr = v.Character
