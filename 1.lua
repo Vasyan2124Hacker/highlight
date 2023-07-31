@@ -1,6 +1,6 @@
 local holder = game.CoreGui:FindFirstChild("ESPHolder") or Instance.new("Folder")
 if enabled == false then
-    holder:Remove()
+    holder:Destroy()
 end
 
 if holder.Name == "Folder" then
@@ -9,7 +9,7 @@ if holder.Name == "Folder" then
 end
 
 if uselocalplayer == false and holder:FindFirstChild(game.Players.LocalPlayer.Name) then
-    holder:FindFirstChild(game.Players.LocalPlayer.Name):Remove()
+    holder:FindFirstChild(game.Players.LocalPlayer.Name):Destroy()
 end
 
 if HLenabled == true then 
