@@ -1,36 +1,46 @@
 local holder = game.CoreGui:FindFirstChild("ESPHolder") or Instance.new("Folder")
+if enabled == false then
+    holder:Remove()
+end
+
 if holder.Name == "Folder" then
     holder.Name = "ESPHolder"
     holder.Parent = game.CoreGui
 end
 
-local function updateESP(player)
-    if uselocalplayer == false and player == game.Players.LocalPlayer then
-        return
-    end
+if uselocalplayer == false and holder:FindFirstChild(game.Players.LocalPlayer.Name) then
+    holder:FindFirstChild(game.Players.LocalPlayer.Name):Remove()
+end
 
-    local chr = player.Character
-    if chr then
-        local esp = holder:FindFirstChild(player.Name) or Instance.new("BoxHandleAdornment")
-        esp.Name = player.Name
-        esp.Size = Vector3.new(4, 7, 4)
-        esp.Adornee = chr
-        esp.AlwaysOnTop = true
-
-        if filluseteamcolor then
-            esp.Color3 = player.TeamColor.Color
-        else
-            esp.Color3 = fillcolor
-        end
-
-        if outlineuseteamcolor then
-            esp.Transparency = 0
-        else
-            esp.Transparency = outlinetrans
-        end
-
-        esp.ZIndex = 5
-        esp.Visible = true
+if getgenv().enabled == true then 
+    getgenv().enabled = false
+    getgenv().enabled = true
+end
+while getgenv().enabled do
+    task.wait()
+    for _,v in pairs(game.Players:GetChildren()) do
+        local chr = v.Character
+        if chr ~= nil then
+        local esp = holder:FindFirstChild(v.Name) or Instance.new("Highlight")
+        esp.Name = v.Name
+        if uselocalplayer == false and esp.Name == game.Players.LocalPlayer.Name then
+            else
         esp.Parent = holder
+        if filluseteamcolor then
+            esp.FillColor = v.TeamColor.Color
+        else
+            esp.FillColor = fillcolor 
+        end
+        if outlineuseteamcolor then
+            esp.OutlineColor = v.TeamColor.Color
+        else
+            esp.OutlineColor = outlinecolor    
+        end
+        esp.FillTransparency = filltrans
+        esp.OutlineTransparency = outlinetrans
+        esp.Adornee = chr
+        esp.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+        end
+        end
     end
 end
